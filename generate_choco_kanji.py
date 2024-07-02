@@ -1,7 +1,9 @@
-import pandas as pd
-import xml.etree.ElementTree as ET
+
+import os
 from pprint import pprint
 import svgpathtools
+import xml.etree.ElementTree as ET
+
 
 x_advance = 109
 
@@ -42,29 +44,19 @@ alt_footer = """
 </svg>"""
 
 
+KANJI_VG_FOLDER = os.environ.get('KANJIVG_LOC', 'kanjivg location not set')
 
 
-KANJI_VG_FOLDER = ""
-
-
-def flip_svg_path(d):
+def fix_path_string(d):
   path = svgpathtools.parse_path(d)
-  pprint(("p", path))
 
   vertical_flip = svgpathtools.parser.parse_transform('scale(1, -1)')
   shift_up = svgpathtools.parser.parse_transform('translate(0, 59)')
   
   flipped_path = svgpathtools.path.transform(path, vertical_flip)
   shifted_path = svgpathtools.path.transform(flipped_path, shift_up)
-  pprint(shifted_path)
 
   return shifted_path.d()
-
-
-def fix_path_string(p):
-  p = p.rstrip()
-  p = flip_svg_path(p)
-  return p
 
 def convert_kanji(svg: str) -> str:
   root = ET.fromstring(svg)
@@ -82,18 +74,17 @@ def write_kanji_file(open_file, kanji_filename):
   with open(kanji_filename, 'r') as example_kanji:
     example_kanji_svg: str = example_kanji.read()
     entry = convert_kanji(example_kanji_svg)
-
-    pprint(entry)
-
     open_file.write(entry)
 
 def main():
   with open('choco-kanji.svg', 'w') as f:
     f.write(header)
 
-    write_kanji_file(f, '04e56.svg')
-    write_kanji_file(f, '04e57.svg')
-    write_kanji_file(f, '04e58.svg')
+    kanji_files = os.listdir(KANJI_VG_FOLDER)
+    simple_kanji_files = [filename for filename in kanji_files if len(filename) == 9]
+    # filter files
+    for kanji_filename in simple_kanji_files:
+      write_kanji_file(f, KANJI_VG_FOLDER + kanji_filename)
     
     f.write(footer)
 
