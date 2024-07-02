@@ -1,4 +1,4 @@
-#Choco Kanji
+# Choco Kanji
 
 A Japanese Hershey SVG font for use with pen plotters.
 

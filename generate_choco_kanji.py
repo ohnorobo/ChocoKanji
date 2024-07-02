@@ -3,8 +3,9 @@ import xml.etree.ElementTree as ET
 from pprint import pprint
 import svgpathtools
 
+x_advance = 109
 
-header = """<?xml version="1.0" encoding="UTF-8" ?>
+header = f"""<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
@@ -13,16 +14,16 @@ header = """<?xml version="1.0" encoding="UTF-8" ?>
 
 </metadata>
 <defs>
-<font id="ChocoKanji SVG" horiz-adv-x="38" >
+<font id="ChocoKanji SVG" horiz-adv-x="{x_advance}" >
 <font-face
 font-family="ChocoKanji SVG"
-units-per-em="109"
+units-per-em="{x_advance}"
 ascent="80"
 descent="-20"
 cap-height="50"
 x-height="30"
 />
-<missing-glyph horiz-adv-x="109" d="M 0,0 0,80 80,80 80,0 0,0 M 0,0 80,80 M 20,0 80,60 M 40,0 80,40 M 0,20 60,80"/> 
+<missing-glyph horiz-adv-x="{x_advance}" d="M 0,0 0,80 80,80 80,0 0,0 M 0,0 80,80 M 20,0 80,60 M 40,0 80,40 M 0,20 60,80"/> 
 """
 footer = """
 </font>
@@ -32,7 +33,7 @@ footer = """
 alt_header = """<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
 
-<svg xmlns="http://www.w3.org/2000/svg" width="109" height="109" viewBox="0 0 109 109">
+<svg xmlns="http://www.w3.org/2000/svg" width="{x_advance}" height="{x_advance}" viewBox="0 0 {x_advance} {x_advance}">
 <g style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;">
 """
 
@@ -42,7 +43,6 @@ alt_footer = """
 
 
 
-x_advance = 109
 
 KANJI_VG_FOLDER = ""
 
@@ -52,12 +52,13 @@ def flip_svg_path(d):
   pprint(("p", path))
 
   vertical_flip = svgpathtools.parser.parse_transform('scale(1, -1)')
-  pprint(vertical_flip)
+  shift_up = svgpathtools.parser.parse_transform('translate(0, 59)')
   
   flipped_path = svgpathtools.path.transform(path, vertical_flip)
-  pprint(flipped_path)
+  shifted_path = svgpathtools.path.transform(flipped_path, shift_up)
+  pprint(shifted_path)
 
-  return flipped_path.d()
+  return shifted_path.d()
 
 
 def fix_path_string(p):
