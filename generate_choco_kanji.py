@@ -27,22 +27,11 @@ x-height="30"
 />
 <missing-glyph horiz-adv-x="{x_advance}" d="M 0,0 0,80 80,80 80,0 0,0 M 0,0 80,80 M 20,0 80,60 M 40,0 80,40 M 0,20 60,80"/> 
 """
+
 footer = """
 </font>
 </defs>
 </svg>"""
-
-alt_header = """<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
-
-<svg xmlns="http://www.w3.org/2000/svg" width="{x_advance}" height="{x_advance}" viewBox="0 0 {x_advance} {x_advance}">
-<g style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;">
-"""
-
-alt_footer = """
-</g>
-</svg>"""
-
 
 KANJI_VG_FOLDER = os.environ.get('KANJIVG_LOC', 'kanjivg location not set')
 
@@ -58,7 +47,7 @@ def fix_path_string(d):
 
   return shifted_path.d()
 
-def convert_kanji(svg: str) -> str:
+def convert_kanji(svg):
   root = ET.fromstring(svg)
 
   character = root[0][0].attrib['{http://kanjivg.tagaini.net}element']
@@ -68,7 +57,6 @@ def convert_kanji(svg: str) -> str:
   combined_strokes = " ".join(paths)
 
   return f'<glyph unicode="{character}" glyph-name="{character}" horiz-adv-x="{x_advance}" d="{combined_strokes}" />\n'
-
 
 def write_kanji_file(open_file, kanji_filename):
   with open(kanji_filename, 'r') as example_kanji:
@@ -82,7 +70,6 @@ def main():
 
     kanji_files = os.listdir(KANJI_VG_FOLDER)
     simple_kanji_files = [filename for filename in kanji_files if len(filename) == 9]
-    # filter files
     for kanji_filename in simple_kanji_files:
       write_kanji_file(f, KANJI_VG_FOLDER + kanji_filename)
     
