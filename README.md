@@ -2,6 +2,8 @@
 
 A Japanese Hershey SVG font for use with pen plotters.
 
+To use the font, download the file choco_kanji.svg
+
 ## Inspiration
 
 I wanted a simple Japanese Hershey SVG font I could use with my pen plotter, but wasn't able to find one. This font contains Kanji from KanjiVG and Katakana/Hirigana from Dr Hershey.
