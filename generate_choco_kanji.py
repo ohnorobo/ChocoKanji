@@ -20,12 +20,13 @@ header = f"""<?xml version="1.0" encoding="UTF-8" ?>
 <font-face
 font-family="ChocoKanji SVG"
 units-per-em="{x_advance}"
-ascent="80"
-descent="-20"
-cap-height="50"
+ascent="100"
+descent="20"
+cap-height="90"
 x-height="30"
 />
 <missing-glyph horiz-adv-x="{x_advance}" d="M 0,0 0,80 80,80 80,0 0,0 M 0,0 80,80 M 20,0 80,60 M 40,0 80,40 M 0,20 60,80"/> 
+<glyph unicode=" " glyph-name="space" horiz-adv-x="50" />
 """
 
 footer = """
@@ -33,14 +34,14 @@ footer = """
 </defs>
 </svg>"""
 
-KANJI_VG_FOLDER = os.environ.get('KANJIVG_LOC', 'kanjivg location not set')
+KANJI_VG_FOLDER = 'kanjivg location not set'
 
 
 def fix_path_string(d):
   path = svgpathtools.parse_path(d)
 
   vertical_flip = svgpathtools.parser.parse_transform('scale(1, -1)')
-  shift_up = svgpathtools.parser.parse_transform('translate(0, 59)')
+  shift_up = svgpathtools.parser.parse_transform('translate(0, 49)')
   
   flipped_path = svgpathtools.path.transform(path, vertical_flip)
   shifted_path = svgpathtools.path.transform(flipped_path, shift_up)
