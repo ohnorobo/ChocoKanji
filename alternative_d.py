@@ -1,10 +1,8 @@
 from svgpathtools import Line, CubicBezier, QuadraticBezier, Arc
-from pprint import pprint
 
 
 # This is a modified version of the d function from svgpathtools.path.Path.d
 # It allows rounding the float outputs
-
 def alternative_d(self, useSandT=False, use_closed_attrib=False, rel=False):
     """Returns a path d-string for the path object.
     For an explanation of useSandT and use_closed_attrib, see the

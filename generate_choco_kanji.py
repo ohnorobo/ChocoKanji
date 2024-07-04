@@ -1,6 +1,5 @@
 
 import os
-from pprint import pprint
 import svgpathtools
 from unittest.mock import patch
 import xml.etree.ElementTree as ET
@@ -37,8 +36,7 @@ footer = """
 </defs>
 </svg>"""
 
-KANJI_VG_FOLDER = '/Users/slaplante/Dropbox/Documents/Projects/kanjivg/kanji/'
-# 'kanjivg location not set'
+KANJI_VG_FOLDER = 'kanjivg location not set'
 
 
 def fix_path_string(d):
