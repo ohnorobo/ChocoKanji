@@ -15,4 +15,4 @@ I wanted a simple Japanese Hershey SVG font I could use with my pen plotter, but
 
 ## License
 
-MIT license, except for data from projects with their own licensing.
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
