@@ -10,7 +10,7 @@ I wanted a simple Japanese Hershey SVG font I could use with my pen plotter, but
 
 ## Sources
 
-- [KanjiVG](https://kanjivg.tagaini.net/index.html) source of Kanij data
+- [KanjiVG](https://kanjivg.tagaini.net/index.html) source of Kanij data. [Github](https://github.com/KanjiVG/kanjivg)
 - [DanXianZiti](https://github.com/NicholasARossi/generative_artforms/tree/main/generative_fonts/chinese) a similar generated font for Chinese
 
 ## License
