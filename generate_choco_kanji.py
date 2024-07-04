@@ -2,7 +2,10 @@
 import os
 from pprint import pprint
 import svgpathtools
+from unittest.mock import patch
 import xml.etree.ElementTree as ET
+
+import alternative_d
 
 
 x_advance = 109
@@ -34,7 +37,8 @@ footer = """
 </defs>
 </svg>"""
 
-KANJI_VG_FOLDER = 'kanjivg location not set'
+KANJI_VG_FOLDER = '/Users/slaplante/Dropbox/Documents/Projects/kanjivg/kanji/'
+# 'kanjivg location not set'
 
 
 def fix_path_string(d):
@@ -46,7 +50,9 @@ def fix_path_string(d):
   flipped_path = svgpathtools.path.transform(path, vertical_flip)
   shifted_path = svgpathtools.path.transform(flipped_path, shift_up)
 
-  return shifted_path.d()
+  # Monkeypatch svgtools.path.d function
+  with patch('svgpathtools.path.Path.d', new=alternative_d.alternative_d):
+    return shifted_path.d()
 
 def convert_kanji(svg):
   root = ET.fromstring(svg)
