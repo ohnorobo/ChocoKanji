@@ -1,5 +1,4 @@
 from svgpathtools import Line, CubicBezier, QuadraticBezier, Arc
-from pprint import pprint
 
 
 # This is a modified version of the d function from svgpathtools.path.Path.d
